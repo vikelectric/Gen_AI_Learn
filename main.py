@@ -37,7 +37,7 @@ for message in st.session_state.chat_history:
 
 
 # input field for user's message:
-user_prompt = st.chat_input("Ask Nancy...")
+user_prompt = st.chat_input("Ask Jajabor...")
 
 if user_prompt:
 
