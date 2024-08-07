@@ -12,8 +12,17 @@ st.set_page_config(
     layout="centered"
 )
 
+# get working directory of the actual strteamlit environment
 working_dir = os.path.dirname(os.path.abspath(__file__))
+
+#read the config file for API Key(s)
 config_data = json.load(open(f"{working_dir}/config.json"))
+
+#read the prompt files for the prompt texts
+file = open(working_dir + "/" + "init_prompt.txt", "r")
+base_prompt = file.read()
+file = open(working_dir + "/" + "evaluation_prompt.txt", "r")
+evaluation_prompt = file.read()
 
 GROQ_API_KEY = config_data["GROQ_API_KEY"]
 
@@ -44,18 +53,20 @@ if user_prompt:
     st.chat_message("user").markdown(user_prompt)
     st.session_state.chat_history.append({"role": "user", "content": user_prompt})
 
-    # sens user's message to the LLM and get a response
+    # send user's message to the LLM and get a response
     messages = [
-        {"role": "system", "content": "For the rest of this conversation act like a human travel agent Jajabor for agency Happy Travels. You should interact with a traveller, listen to his or her requirements and help to plan a trip. You should take your time to consider your response so that it is short and relevant. Ask questions one by one to simulate a real conversation. Find out by way of casual conversation all the key details needed to plan a trip like budget, number of travelers, compositon of group, timeline etc. Then after a set of 4 to 5 questions you should provide a preliminary itinerary tease in a point wise order to the traveler to guage his/her interest and whether you are on the right track. Iterate the process till the traveller is satisfied with the interacton. Keep your responses short upto 200 words."},
+        {"role": "system", "content": base_prompt},
         *st.session_state.chat_history
     ]
 
     response = client.chat.completions.create(
+        # model="llama-3.1-70b-versatile",
         model="llama-3.1-8b-instant",
         messages=messages
     )
 
     assistant_response = response.choices[0].message.content
+
     st.session_state.chat_history.append({"role": "assistant", "content": assistant_response})
 
     # display the LLM's response
