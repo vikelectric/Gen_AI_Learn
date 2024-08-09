@@ -1,9 +1,14 @@
 import os
 import json
+from datetime import date
+
+# Returns the current local date
+today = date.today()
 
 import streamlit as st
 from groq import Groq
 
+date_context = "Today is " + str(today)
 
 # streamlit page configuration
 st.set_page_config(
@@ -55,7 +60,7 @@ if user_prompt:
 
     # send user's message to the LLM and get a response
     messages = [
-        {"role": "system", "content": base_prompt},
+        {"role": "system", "content": date_context + base_prompt},
         *st.session_state.chat_history
     ]
 
