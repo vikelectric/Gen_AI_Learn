@@ -43,6 +43,7 @@ if "chat_history" not in st.session_state:
 
 # streamlit page title
 st.title("🗺️ Happy Travels")
+st.image(working_dir + "/" + "Media" + "/" + "Travel_bgd.png", use_column_width = "auto")
 
 # display chat history
 for message in st.session_state.chat_history:
