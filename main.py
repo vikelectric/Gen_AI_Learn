@@ -26,8 +26,6 @@ config_data = json.load(open(f"{working_dir}/config.json"))
 #read the prompt files for the prompt texts
 file = open(working_dir + "/" + "init_prompt.txt", "r")
 base_prompt = file.read()
-file = open(working_dir + "/" + "evaluation_prompt.txt", "r")
-evaluation_prompt = file.read()
 
 GROQ_API_KEY = config_data["GROQ_API_KEY"]
 
@@ -43,6 +41,7 @@ if "chat_history" not in st.session_state:
 
 # streamlit page title
 st.title("🗺️ Happy Travels")
+# streamlit page image
 st.image(working_dir + "/" + "Media" + "/" + "Travel_bgd.png", use_column_width = "auto")
 
 # display chat history
@@ -56,7 +55,9 @@ user_prompt = st.chat_input("Ask Jajabor...")
 
 if user_prompt:
 
+    # display user entered message on screen
     st.chat_message("user").markdown(user_prompt)
+    # add user entered message to chat history
     st.session_state.chat_history.append({"role": "user", "content": user_prompt})
 
     # send user's message to the LLM and get a response
