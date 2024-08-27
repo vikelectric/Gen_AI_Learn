@@ -20,16 +20,18 @@ st.set_page_config(
 # get working directory of the actual strteamlit environment
 working_dir = os.path.dirname(os.path.abspath(__file__))
 
-#read the config file for API Key(s)
-config_data = json.load(open(f"{working_dir}/config.json"))
+#read the config file for API Key(s) -- LOCAL MACHINE RUNS
+#config_data = json.load(open(f"{working_dir}/config.json"))
+#GROQ_API_KEY = config_data["GROQ_API_KEY"]
+
+#read the config file for API Key(s) --- STREAMLIT VERSION
+GROQ_API_KEY = st.secrets["GROQ_API_KEY"]
 
 #read the prompt files for the prompt texts
 file = open(working_dir + "/" + "init_prompt.txt", "r")
 base_prompt = file.read()
 
-GROQ_API_KEY = config_data["GROQ_API_KEY"]
-
-# save the api key to environment variable
+# save the llm api key to environment variable
 os.environ["GROQ_API_KEY"] = GROQ_API_KEY
 
 client = Groq()
