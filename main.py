@@ -20,7 +20,7 @@ st.set_page_config(
 # get working directory of the actual strteamlit environment
 working_dir = os.path.dirname(os.path.abspath(__file__))
 
-'''
+_='''
 #read the config file for API Key(s) -- LOCAL MACHINE RUNS
 #config_data = json.load(open(f"{working_dir}/config.json"))
 #GROQ_API_KEY = config_data["GROQ_API_KEY"]
