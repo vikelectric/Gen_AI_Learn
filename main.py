@@ -24,7 +24,7 @@ _ = '''
 #read the config file for API Key(s) -- LOCAL MACHINE Version
 config_data = json.load(open(f"{working_dir}/config.json"))
 GROQ_API_KEY = config_data["GROQ_API_KEY"]
-'''
+# '''
 
 #read the config file for API Key(s) --- STREAMLIT Version
 GROQ_API_KEY = st.secrets["GROQ_API_KEY"]
